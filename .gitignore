@@ -1,0 +1,19 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+
+# Local build/test artifacts
+scratch/
+*.tmp
+*.bak
+
+# Never commit local user state or secrets
+*.local.json
+.env
+.env.*
+
+# Local test/build output
+test-output.txt

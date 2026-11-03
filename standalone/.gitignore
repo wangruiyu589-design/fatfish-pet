@@ -1,0 +1,17 @@
+﻿node_modules/
+dist/
+release/
+config.json
+server.log
+server.err.log
+shot.png
+dom.txt
+*.png
+!shot-setup-new.png
+!shot-overlay-final.png
+!shot-overlay-chat.png
+!shot-agent-ask.png
+!shot-plugin-dark-chat.png
+!shot-plugin-settings.png
+!shot-deep-sleep.png
+!renderer/*.png

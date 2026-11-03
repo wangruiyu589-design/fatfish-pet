@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>大肥鱼</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --dsw-alias-bg-base: #f2f5ff;
+      --dsw-alias-bg-layer-1: rgba(255, 255, 255, 0.94);
+      --dsw-alias-bg-layer-2: rgba(243, 247, 255, 0.94);
+      --dsw-alias-bg-overlay: rgba(255, 255, 255, 0.98);
+      --dsw-alias-border-l1: rgba(32, 48, 92, 0.12);
+      --dsw-alias-border-l2: rgba(32, 48, 92, 0.18);
+      --dsw-alias-border-subtle: rgba(32, 48, 92, 0.09);
+      --dsw-alias-brand-primary: #2f4bd0;
+      --dsw-alias-label-primary: #131c33;
+      --dsw-alias-label-secondary: #5c6883;
+      --dsw-alias-state-error-primary: #c4364f;
+      --dsw-alias-state-idle-primary: #8a94a8;
+      --dsw-alias-state-success-primary: #1f8a67;
+      --dsw-alias-state-warn-primary: #b67818;
+      --ffish-font: "Segoe UI Variable Display", "Segoe UI", "Microsoft YaHei UI", "PingFang SC", system-ui, sans-serif;
+    }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+      font-family: var(--ffish-font);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body {
+      -webkit-app-region: no-drag;
+      user-select: none;
+    }
+    ::selection { background: rgba(47, 75, 208, 0.22); }
+
+    /* Desktop dock, top-right. Frosted porcelain with one cobalt accent. */
+    #fatfish-dock {
+      position: fixed;
+      top: 16px;
+      right: 18px;
+      z-index: 2147483001;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 10px 8px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(244, 248, 255, 0.58));
+      box-shadow:
+        0 18px 48px -22px rgba(28, 45, 94, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(22px) saturate(165%);
+      -webkit-backdrop-filter: blur(22px) saturate(165%);
+      color: #16203a;
+      font-family: var(--ffish-font);
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+    #fatfish-dock:hover { transform: translateY(-1px); }
+    #fatfish-dock .ffish-dock-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-right: 10px;
+      border-right: 1px solid rgba(32, 48, 92, 0.12);
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    #fatfish-dock .ffish-dock-brand img {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      object-fit: cover;
+      box-shadow: 0 3px 10px rgba(36, 58, 140, 0.24);
+    }
+    #fatfish-dock .ffish-dock-actions { display: flex; align-items: center; gap: 4px; }
+    #fatfish-dock button {
+      appearance: none;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #33405e;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+    }
+    #fatfish-dock button:hover {
+      background: rgba(47, 75, 208, 0.1);
+      border-color: rgba(47, 75, 208, 0.18);
+      color: #1f37a8;
+    }
+    #fatfish-dock button:active { transform: translateY(1px); }
+    #fatfish-dock button[data-action="quit"]:hover {
+      background: rgba(196, 54, 79, 0.1);
+      border-color: rgba(196, 54, 79, 0.2);
+      color: #a72c43;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #fatfish-dock { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <pre id="boot-log" aria-hidden="true" style="position:fixed;left:10px;bottom:10px;z-index:9999999;max-width:540px;white-space:pre-wrap;font:11px monospace;color:#b00020;background:rgba(255,255,255,.85)"></pre>
+  <script>
+    window.__LOGS__ = [];
+    function showLog(text) {
+      window.__LOGS__.push(text);
+      var el = document.getElementById('boot-log');
+      if (el) el.textContent = window.__LOGS__.join('\n');
+    }
+    window.addEventListener('error', function (event) { showLog('ERROR: ' + (event.message || '') + ' @' + (event.filename || '') + ':' + (event.lineno || 0)); });
+    window.addEventListener('unhandledrejection', function (event) { showLog('REJECTION: ' + String(event.reason && (event.reason.stack || event.reason.message) || event.reason)); });
+    var oldError = console.error;
+    console.error = function () { try { showLog('console.error: ' + Array.prototype.join.call(arguments, ' ')); } catch (e) {} oldError.apply(console, arguments); };
+  </script>
+  <script src="/boot.js"></script>
+  <script src="/client.js"></script>
+</body>
+</html>

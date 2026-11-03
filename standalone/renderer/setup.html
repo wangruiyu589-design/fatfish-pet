@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>大肥鱼 · 设置</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #111a30;
+      --muted: #5d6a85;
+      --faint: #8791a8;
+      --line: rgba(31, 51, 97, 0.1);
+      --line-strong: rgba(31, 51, 97, 0.16);
+      --panel: rgba(255, 255, 255, 0.86);
+      --brand: #2f4bd0;
+      --brand-strong: #2138a8;
+      --danger: #c4364f;
+      --ok: #1f8a67;
+      --font: "Segoe UI Variable Display", "Segoe UI", "Microsoft YaHei UI", "PingFang SC", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background:
+        radial-gradient(1100px 720px at 8% -10%, #dfe8ff 0%, transparent 58%),
+        radial-gradient(900px 620px at 105% 8%, #e8f1ff 0%, transparent 52%),
+        linear-gradient(180deg, #f4f7ff 0%, #edf2fc 100%);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    .shell {
+      width: min(1120px, calc(100vw - 56px));
+      margin: 0 auto;
+      padding: 34px 0 42px;
+      display: grid;
+      grid-template-columns: minmax(320px, 0.92fr) minmax(420px, 1.08fr);
+      gap: 22px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .shell { grid-template-columns: 1fr; width: calc(100vw - 32px); padding-top: 20px; gap: 16px; }
+    }
+
+    /* Left: brand panel */
+    .brand {
+      position: relative;
+      overflow: hidden;
+      min-height: 640px;
+      border-radius: 28px;
+      padding: 30px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.66);
+      background:
+        linear-gradient(155deg, rgba(255, 255, 255, 0.72), rgba(231, 240, 255, 0.5)),
+        #e4ecff;
+      box-shadow: 0 30px 80px -46px rgba(22, 42, 102, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(28px) saturate(150%);
+      -webkit-backdrop-filter: blur(28px) saturate(150%);
+    }
+    .brand::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -110px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 36% 32%, rgba(93, 132, 255, 0.34), transparent 62%);
+      pointer-events: none;
+    }
+    .brand-top { display: flex; align-items: center; gap: 12px; }
+    .brand-top img {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 10px 26px -12px rgba(30, 55, 140, 0.6);
+    }
+    .brand-top .wordmark { font-size: 15px; font-weight: 720; letter-spacing: 0.02em; }
+    .brand-top .wordmark small { display: block; font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.08em; margin-top: 1px; }
+    .brand h1 {
+      margin: 34px 0 12px;
+      font-size: clamp(30px, 3.4vw, 42px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      font-weight: 760;
+      max-width: 8em;
+    }
+    .brand h1 em { font-style: normal; color: var(--brand); }
+    .brand .lede {
+      margin: 0;
+      max-width: 34ch;
+      color: #46536f;
+      font-size: 13.5px;
+      line-height: 1.8;
+    }
+    .traits { display: grid; gap: 10px; margin: 28px 0 0; padding: 0; list-style: none; }
+    .traits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12.5px;
+      color: #34425f;
+      line-height: 1.55;
+    }
+    .traits .dot {
+      flex: none;
+      width: 7px;
+      height: 7px;
+      margin-top: 6px;
+      border-radius: 999px;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(47, 75, 208, 0.1);
+    }
+    .pet-preview {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 78px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(244, 248, 255, 0.62));
+      box-shadow: 0 18px 42px -30px rgba(20, 38, 92, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+    }
+    .pet-preview img {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      object-fit: cover;
+      box-shadow: 0 8px 18px -12px rgba(30, 55, 140, 0.6);
+    }
+    .pet-preview-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+    .pet-preview-meta strong { font-size: 12.5px; font-weight: 720; color: #1a2542; }
+    .pet-preview-meta span { font-size: 11px; color: var(--muted); }
+    .pet-preview-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: none;
+      font-size: 10.5px;
+      font-weight: 650;
+      color: #36507f;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(47, 75, 208, 0.16);
+      background: rgba(47, 75, 208, 0.07);
+    }
+    .pet-preview-status i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 3px rgba(47, 75, 208, 0.14); }
+    .brand-foot {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 26px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(31, 51, 97, 0.1);
+      color: var(--faint);
+      font-size: 11.5px;
+      line-height: 1.5;
+    }
+    .brand-foot strong { color: #3b4a68; font-weight: 650; }
+
+    /* Right: form card */
+    .card {
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      background: var(--panel);
+      box-shadow: 0 30px 80px -52px rgba(20, 38, 92, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(26px) saturate(150%);
+      -webkit-backdrop-filter: blur(26px) saturate(150%);
+      padding: 28px 30px 24px;
+    }
+    .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+    .card-head h2 { margin: 0; font-size: 19px; letter-spacing: -0.01em; font-weight: 730; }
+    .card-head .step { font-size: 11px; font-weight: 650; color: var(--faint); letter-spacing: 0.08em; }
+    .card .hint { margin: 0 0 18px; color: var(--muted); font-size: 12.5px; line-height: 1.7; }
+
+    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .preset {
+      appearance: none;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 640;
+      color: #35425f;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: transform 150ms ease, border-color 150ms ease, background 150ms ease, color 150ms ease;
+    }
+    .preset:hover { border-color: rgba(47, 75, 208, 0.36); color: var(--brand-strong); transform: translateY(-1px); }
+    .preset.active { background: rgba(47, 75, 208, 0.1); border-color: rgba(47, 75, 208, 0.42); color: var(--brand-strong); box-shadow: inset 0 0 0 1px rgba(47, 75, 208, 0.1); }
+
+    .field { margin-top: 15px; }
+    .field label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 660;
+      color: #2c3a58;
+      margin-bottom: 6px;
+    }
+    .field label .opt { font-weight: 500; color: var(--faint); font-size: 11px; }
+    .field .helper { margin-top: 6px; font-size: 11.5px; color: var(--faint); line-height: 1.5; }
+    .input-wrap { position: relative; }
+    input[type="text"], input[type="password"], input[type="url"] {
+      width: 100%;
+      height: 44px;
+      padding: 0 13px;
+      border-radius: 12px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+    }
+    input::placeholder { color: #98a2b8; }
+    input:hover { border-color: rgba(47, 75, 208, 0.26); }
+    input:focus-visible {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px rgba(47, 75, 208, 0.14);
+      background: #ffffff;
+    }
+    .key-toggle {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 11px;
+      font-weight: 650;
+      padding: 6px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .key-toggle:hover { background: rgba(47, 75, 208, 0.08); color: var(--brand-strong); }
+
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+
+    details.advanced { margin-top: 16px; border-top: 1px dashed var(--line); padding-top: 14px; }
+    details.advanced summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 12px;
+      font-weight: 660;
+      color: #3a4763;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    details.advanced summary::-webkit-details-marker { display: none; }
+    details.advanced summary::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-right: 1.5px solid #62708d;
+      border-bottom: 1.5px solid #62708d;
+      transform: rotate(-45deg);
+      transition: transform 150ms ease;
+      margin-left: 2px;
+    }
+    details.advanced[open] summary::before { transform: rotate(45deg); }
+    details.advanced .helper { margin: 8px 0 10px; font-size: 11.5px; color: var(--faint); line-height: 1.6; }
+
+    .actions { display: flex; align-items: center; gap: 10px; margin-top: 22px; }
+    .btn-primary {
+      appearance: none;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #3a59e0, #273fb8);
+      color: #ffffff;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 680;
+      letter-spacing: 0.01em;
+      padding: 12px 20px;
+      cursor: pointer;
+      box-shadow: 0 12px 26px -14px rgba(31, 53, 160, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 16px 30px -14px rgba(31, 53, 160, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.22); }
+    .btn-primary:active { transform: translateY(0); filter: brightness(0.97); }
+    .btn-primary:focus-visible { outline: 3px solid rgba(47, 75, 208, 0.3); outline-offset: 2px; }
+    .btn-primary:disabled { opacity: 0.55; cursor: default; transform: none; }
+    .btn-secondary {
+      appearance: none;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.64);
+      color: #2f3d5c;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 640;
+      padding: 12px 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.95); border-color: rgba(47, 75, 208, 0.3); transform: translateY(-1px); }
+    .btn-secondary:active { transform: translateY(0); }
+    .btn-secondary:disabled { opacity: 0.55; cursor: default; transform: none; }
+    .status {
+      margin-left: auto;
+      font-size: 11.5px;
+      color: var(--muted);
+      min-height: 16px;
+      text-align: right;
+      max-width: 46%;
+      line-height: 1.5;
+    }
+    .status.ok { color: var(--ok); }
+    .status.err { color: var(--danger); }
+    .footnote { margin-top: 16px; font-size: 11px; color: var(--faint); line-height: 1.65; }
+    .footnote strong { color: #46536f; font-weight: 650; }
+    .err-box {
+      display: none;
+      margin-top: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(196, 54, 79, 0.24);
+      background: rgba(196, 54, 79, 0.07);
+      color: #8c2437;
+      font-size: 12px;
+      line-height: 1.6;
+      padding: 10px 12px;
+    }
+    .err-box.show { display: block; }
+
+    .fade-up { animation: fade-up 420ms ease both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { animation: none; }
+      .preset, .btn-primary, .btn-secondary, input { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="brand fade-up" aria-label="大肥鱼介绍">
+      <div class="brand-top">
+        <img src="/icon.png" alt="大肥鱼头像" />
+        <div class="wordmark">大肥鱼<small>DESKTOP COMPANION</small></div>
+      </div>
+      <h1>把一只<em>会陪你</em>的鲸鱼，放到桌面上。</h1>
+      <p class="lede">她记得你说过的话，会因为你忙而安静，也会在你太久没理她时闹点小脾气。现在，先帮她连上一个模型。</p>
+      <ul class="traits">
+        <li><span class="dot"></span><span><strong>人格与心情</strong>：五种性格底色，会随相处慢慢变化。</span></li>
+        <li><span class="dot"></span><span><strong>会说话也会做事</strong>：聊天、动作、记忆、提醒，权限由你决定。</span></li>
+        <li><span class="dot"></span><span><strong>本地优先</strong>：人格与记忆保存在本机，接口密钥只留在本机配置。</span></li>
+      </ul>
+      <div class="pet-preview" aria-label="桌宠预览">
+        <img src="/icon.png" alt="大肥鱼" />
+        <div class="pet-preview-meta">
+          <strong>大肥鱼</strong>
+          <span>会记住你 · 初始好感度 60</span>
+        </div>
+        <span class="pet-preview-status"><i></i>待唤醒</span>
+      </div>
+      <div class="brand-foot">
+        <strong>开源</strong> · AGPL-3.0 · 模型由你提供
+      </div>
+    </section>
+
+    <section class="card fade-up" style="animation-delay: 60ms" aria-label="模型设置">
+      <div class="card-head">
+        <h2>连接你的模型</h2>
+        <span class="step">01 / 模型</span>
+      </div>
+      <p class="hint">支持任何 OpenAI Chat Completions 兼容接口。选择预设后可再手动修改。</p>
+
+      <div class="presets" role="group" aria-label="服务商预设">
+        <button type="button" class="preset" data-preset="deepseek">DeepSeek</button>
+        <button type="button" class="preset" data-preset="openai">OpenAI</button>
+        <button type="button" class="preset" data-preset="ollama">本地 Ollama</button>
+      </div>
+
+      <form id="form" novalidate>
+        <div class="field">
+          <label for="baseUrl">API 地址 <span class="opt">Base URL</span></label>
+          <input id="baseUrl" type="url" placeholder="https://api.deepseek.com/v1" autocomplete="url" spellcheck="false" />
+          <div class="helper">要包含版本路径，例如 <code>/v1</code>。</div>
+        </div>
+
+        <div class="field">
+          <label for="apiKey">API Key <span class="opt" id="keyState"></span></label>
+          <div class="input-wrap">
+            <input id="apiKey" type="password" placeholder="sk-..." autocomplete="off" spellcheck="false" />
+            <button type="button" class="key-toggle" id="keyToggle">显示</button>
+          </div>
+          <div class="helper">只保存在本机 <code>config.json</code>，不会上传到任何第三方。</div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="model">默认模型</label>
+            <input id="model" type="text" placeholder="deepseek-chat" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="field">
+            <label for="models">可选模型 <span class="opt">逗号分隔</span></label>
+            <input id="models" type="text" placeholder="deepseek-chat, deepseek-reasoner" autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+
+        <details class="advanced">
+          <summary>Agent 与工作区（可选）</summary>
+          <div class="helper">Agent 默认只能聊天。工作区是文件读写与命令执行的根目录，之后还能在桌宠设置里调整权限。</div>
+          <div class="field">
+            <label for="workspace">工作区路径 <span class="opt">本地目录</span></label>
+            <input id="workspace" type="text" placeholder="例如 E:\\project" autocomplete="off" spellcheck="false" />
+          </div>
+        </details>
+
+        <div class="err-box" id="errBox" role="alert"></div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary" id="save">保存并启动</button>
+          <button type="button" class="btn-secondary" id="test">测试连接</button>
+          <span class="status" id="status" aria-live="polite"></span>
+        </div>
+      </form>
+
+      <p class="footnote"><strong>提示</strong> · 如果使用本地模型，请先启动 Ollama 或兼容服务；测试连接会发送一条极短的问候请求。</p>
+    </section>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const presets = {
+      deepseek: { baseUrl: 'https://api.deepseek.com/v1', model: 'deepseek-chat', models: 'deepseek-chat, deepseek-reasoner' },
+      openai: { baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o-mini', models: 'gpt-4o-mini, gpt-4o' },
+      ollama: { baseUrl: 'http://127.0.0.1:11434/v1', model: 'qwen2.5:7b', models: 'qwen2.5:7b' },
+    };
+    let existingKey = false;
+    function setStatus(text, kind) {
+      const el = $('status');
+      el.textContent = text || '';
+      el.className = 'status' + (kind ? ' ' + kind : '');
+    }
+    function setError(text) {
+      const box = $('errBox');
+      box.textContent = text || '';
+      box.classList.toggle('show', !!text);
+    }
+    function applyPreset(name) {
+      const preset = presets[name];
+      if (!preset) return;
+      $('baseUrl').value = preset.baseUrl;
+      $('model').value = preset.model;
+      $('models').value = preset.models;
+      document.querySelectorAll('.preset').forEach((button) => button.classList.toggle('active', button.dataset.preset === name));
+      if (name === 'ollama' && !$('apiKey').value && !existingKey) $('apiKey').value = 'ollama';
+    }
+    document.querySelectorAll('.preset').forEach((button) => {
+      button.addEventListener('click', () => applyPreset(button.dataset.preset));
+    });
+    $('keyToggle').addEventListener('click', () => {
+      const input = $('apiKey');
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      $('keyToggle').textContent = show ? '隐藏' : '显示';
+    });
+    async function loadConfig() {
+      try {
+        const response = await fetch('/fatfish-pet/config', { headers: { accept: 'application/json' } });
+        const data = await response.json();
+        if (!data || !data.ok) return;
+        $('baseUrl').value = data.baseUrl || '';
+        $('model').value = data.model || '';
+        $('models').value = (data.models || []).join(', ');
+        $('workspace').value = data.workspace || '';
+        existingKey = !!data.hasKey;
+        $('keyState').textContent = existingKey ? '已保存，留空则不修改' : '尚未保存';
+        if (data.baseUrl && data.baseUrl.includes('deepseek')) document.querySelector('.preset[data-preset="deepseek"]')?.classList.add('active');
+        if (data.baseUrl && data.baseUrl.includes('openai')) document.querySelector('.preset[data-preset="openai"]')?.classList.add('active');
+        if (data.baseUrl && data.baseUrl.includes('11434')) document.querySelector('.preset[data-preset="ollama"]')?.classList.add('active');
+      } catch (error) { /* keep defaults */ }
+    }
+    function payload() {
+      const body = {
+        baseUrl: $('baseUrl').value.trim(),
+        model: $('model').value.trim(),
+        models: $('models').value.split(',').map((item) => item.trim()).filter(Boolean),
+        workspace: $('workspace').value.trim(),
+      };
+      const key = $('apiKey').value;
+      if (key) body.apiKey = key;
+      return body;
+    }
+    async function saveConfig(options = {}) {
+      const response = await fetch('/fatfish-pet/config', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload()),
+      });
+      const data = await response.json();
+      if (!data || !data.ok) throw new Error((data && data.error) || '保存失败');
+      existingKey = existingKey || !!payload().apiKey;
+      return data;
+    }
+    $('test').addEventListener('click', async () => {
+      setError('');
+      setStatus('正在保存并测试…');
+      $('test').disabled = true;
+      try {
+        await saveConfig();
+        const response = await fetch('/fatfish-pet/chat', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ message: '用一句话打招呼', pet: { name: '大肥鱼' } }),
+        });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        setStatus('连接成功，模型已响应', 'ok');
+      } catch (error) {
+        setStatus('连接失败', 'err');
+        setError('测试连接失败：' + (error && error.message ? error.message : '未知错误') + '。请检查地址、Key 与模型名。');
+      } finally {
+        $('test').disabled = false;
+      }
+    });
+    $('form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      setError('');
+      if (!$('baseUrl').value.trim()) { setError('请填写 API 地址。'); $('baseUrl').focus(); return; }
+      if (!$('model').value.trim()) { setError('请填写默认模型名。'); $('model').focus(); return; }
+      if (!existingKey && !$('apiKey').value) { setError('首次设置需要填写 API Key。'); $('apiKey').focus(); return; }
+      setStatus('保存中…');
+      $('save').disabled = true;
+      try {
+        await saveConfig();
+        setStatus('已保存，正在唤醒大肥鱼…', 'ok');
+        if (window.fatfishPet && typeof window.fatfishPet.finishSetup === 'function') {
+          setTimeout(() => window.fatfishPet.finishSetup(), 260);
+        } else {
+          setTimeout(() => { location.href = '/app'; }, 320);
+        }
+      } catch (error) {
+        setStatus('');
+        setError('保存失败：' + (error && error.message ? error.message : '未知错误'));
+        $('save').disabled = false;
+      }
+    });
+    loadConfig();
+  </script>
+</body>
+</html>
