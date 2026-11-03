@@ -1,4 +1,4 @@
-# Builds a portable Windows folder: dist/FatFish with its own Electron runtime.
+﻿# Builds a portable Windows folder: dist/FatFish with its own Electron runtime.
 # Run from the standalone directory (requires node_modules/electron/dist to exist).
 $ErrorActionPreference = "Stop"
 $standalone = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -28,7 +28,7 @@ foreach ($name in @("NOTICE.md", "ATTRIBUTION.md")) {
 # Point resources/app at the standalone main via a tiny entry package.
 $entry = @{
   name = "fatfish-pet"
-  version = "0.1.0"
+  version = "1.3.0"
   private = $true
   type = "module"
   main = "standalone/main.cjs"
@@ -39,3 +39,4 @@ Set-Content -Path (Join-Path $appDir "package.json") -Value $entry -Encoding UTF
 Rename-Item (Join-Path $out "electron.exe") "FatFish.exe" -Force
 Copy-Item -Path (Join-Path $standalone "start-portable.bat") -Destination $out -Force
 Write-Host "Portable build: $out\FatFish.exe"
+

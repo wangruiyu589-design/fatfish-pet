@@ -175,7 +175,7 @@ pnpm start
 
 详细说明与验证见 [standalone/README.md](standalone/README.md)。
 
-发布包：`standalone/dist/FatFish-portable.zip`（SHA256 `371EB8550771EE6C64760B89116251841265CE4777B58F5B115F8FA7A5E54770`）。
+发布包：`standalone/dist/FatFish-portable.zip`（SHA256 `08A3FFCB8E0048C98481CFFF2A418C857E86E238E9CA0D11FC42BE3BC047961F`）。
 
 ## 开源与二次开发
 

@@ -135,7 +135,7 @@ shell execution with your OS account privileges — treat it as full trust.
 - 聊天闭环：在 Electron 窗口内打开聊天、输入并发送消息，mock 模型回复显示在对话框（`你好呀，我是本地测试模型。`）；
 - 安装器：复制安装、保留旧 config、桌面/开始菜单快捷方式、HKCU 开机自启均已实测；
 - 权限：`node test-standalone.mjs` 13/13 PASS（chat SSE、brain、reflect、agent、权限 1/2/3、路径穿越、无工作区）；
-- 便携发布包：`dist/FatFish-portable.zip`，SHA256 `371EB8550771EE6C64760B89116251841265CE4777B58F5B115F8FA7A5E54770`；
+- 便携发布包：`dist/FatFish-portable.zip`，SHA256 `08A3FFCB8E0048C98481CFFF2A418C857E86E238E9CA0D11FC42BE3BC047961F`；
 - 关键修复：补齐 `decayMood`、固定端口 47821 保证 localStorage 跨重启、安装器兼容 BOM 配置、单实例锁；
 - 仍需人工：真实 API Key 聊天、托盘/快捷键逐项确认、代码签名与干净机器安装。
 
