@@ -240,7 +240,7 @@ Invoke-WebRequest http://127.0.0.1:62352/fatfish-pet/models
 | 心情掉太快 | 心情衰减 12%/45s 改为 5%/90s；被忽略 10min 后每 2.5min 扣心情改为 25min 后每 8min；单次忽略扣分降低；AI 反应负向 moodDelta 减半 |
 | 面板字体/对比度 | 强调色固定钴蓝，表面从页面底色派生，用户气泡实心蓝底白字，设置/聊天/菜单字体层级统一 |
 
-发布包：SHA256 08A3FFCB8E0048C98481CFFF2A418C857E86E238E9CA0D11FC42BE3BC047961F
+发布包：SHA256 DE257CFE494D3FBCF8F8F601DC68E91A49FE12EBF147C4CC59C412AEC755C9A7
 
 ## 12. Agent 可用性
 
@@ -254,7 +254,7 @@ Invoke-WebRequest http://127.0.0.1:62352/fatfish-pet/models
 | 工作区为空警告 | PASS | 权限>0 但工作区为空时，设置页明确提示文件/命令不可用 |
 | 旧版“没反应”根因 | 已修 | 旧入口使用固定泛化目标、默认权限 0、delegate 关闭；现在改为可输入目标并真实执行允许的工具 |
 
-发布包：SHA256 08A3FFCB8E0048C98481CFFF2A418C857E86E238E9CA0D11FC42BE3BC047961F
+发布包：SHA256 DE257CFE494D3FBCF8F8F601DC68E91A49FE12EBF147C4CC59C412AEC755C9A7
 
 ## 13. Agent 协议修复（API 调用层）
 
@@ -271,7 +271,7 @@ Invoke-WebRequest http://127.0.0.1:62352/fatfish-pet/models
 - “看看工作区 fatfish-pet 目录” → 执行 list_dir + read_file，返回可读总结；
 - “告诉我今天用了多少 token” → 执行目录查找后，用自然语言说明“没有用量数据来源，去服务商后台看”，不再输出 JSON；
 - 独立版测试 13/13 PASS；
-- 发布包 SHA256 08A3FFCB8E0048C98481CFFF2A418C857E86E238E9CA0D11FC42BE3BC047961F。
+- 发布包 SHA256 DE257CFE494D3FBCF8F8F601DC68E91A49FE12EBF147C4CC59C412AEC755C9A7。
 
 ## 14. 网页 Agent 与长回答
 
@@ -284,7 +284,7 @@ Invoke-WebRequest http://127.0.0.1:62352/fatfish-pet/models
 | 回答展示 | Agent 长回答只写入聊天记录，不再用模型上方大气泡覆盖桌面；气泡只保留「我想想」等短反馈 |
 | 回答长度 | say 工具上限从 80 提到 1200 字符，聊天消息上限 2000，保留完整来源 |
 
-发布包：SHA256 08A3FFCB8E0048C98481CFFF2A418C857E86E238E9CA0D11FC42BE3BC047961F
+发布包：SHA256 DE257CFE494D3FBCF8F8F601DC68E91A49FE12EBF147C4CC59C412AEC755C9A7
 ## 15. 可调参数与息屏沉睡
 
 | 项 | 结果 |
@@ -295,4 +295,4 @@ Invoke-WebRequest http://127.0.0.1:62352/fatfish-pet/models
 | 独立版锁屏 | PASS（代码级）：powerMonitor lock-screen/suspend → system-sleep，unlock/resume → system-wake |
 | 无操作休眠 | PASS：可设 0-120 分钟，0 关闭；任意输入/解锁唤醒 |
 
-发布包：SHA256 08A3FFCB8E0048C98481CFFF2A418C857E86E238E9CA0D11FC42BE3BC047961F
+发布包：SHA256 DE257CFE494D3FBCF8F8F601DC68E91A49FE12EBF147C4CC59C412AEC755C9A7

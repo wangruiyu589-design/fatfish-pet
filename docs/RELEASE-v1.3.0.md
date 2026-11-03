@@ -15,7 +15,7 @@
 - 长回答只进聊天记录，不在桌宠上方显示超长气泡。
 - 息屏/锁屏/无操作自动沉睡；插件使用 visibility + idle，独立版使用 Electron powerMonitor。
 - 独立版便携包：`standalone/dist/FatFish-portable.zip`
-  SHA256 `08A3FFCB8E0048C98481CFFF2A418C857E86E238E9CA0D11FC42BE3BC047961F`
+  SHA256 `DE257CFE494D3FBCF8F8F601DC68E91A49FE12EBF147C4CC59C412AEC755C9A7`
 
 ## 已知限制
 
