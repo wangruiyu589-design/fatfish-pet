@@ -1,0 +1,50 @@
+﻿name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install standalone dependencies
+        working-directory: standalone
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Electron runtime
+        working-directory: standalone
+        run: node node_modules/electron/install.js
+
+      - name: Build portable release
+        working-directory: standalone
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File build-release.ps1
+
+      - name: Show release hash
+        shell: powershell
+        run: Get-Content standalone/dist/FatFish-portable.zip.sha256
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: powershell
+        run: gh release create $env:GITHUB_REF_NAME standalone/dist/FatFish-portable.zip standalone/dist/FatFish-portable.zip.sha256 --title "FatFish Pet $env:GITHUB_REF_NAME" --notes-file docs/RELEASE-v1.3.0.md
